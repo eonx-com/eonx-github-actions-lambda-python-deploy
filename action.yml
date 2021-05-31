@@ -1,0 +1,27 @@
+name: 'JQ Action'
+description: 'This action makes it easy to run jq as an action'
+inputs:
+  aws_access_key_id:
+    description: 'AWS IAM access key'
+    required: true
+  aws_secret_access_key:
+    description: 'AWS IAM secret'
+    required: true
+  aws_default_region:
+    description: 'AWS deployment region'
+    required: true
+  lambda_function_name:
+    description: 'Lambda function name'
+    required: true
+  source_path:
+    description: 'Docker container path in repository'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.aws_access_key_id }}
+    - ${{ inputs.aws_secret_access_key }}
+    - ${{ inputs.aws_default_region }}
+    - ${{ inputs.lambda_function_name }}
+    - ${{ inputs.source_path }}
