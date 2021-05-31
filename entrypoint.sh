@@ -8,6 +8,31 @@ export LAMBDA_FUNCTION_NAME=${4}
 export SOURCE_PATH=${5}
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity | jq -r .Account)
 
+error="0"
+if [[ -z "${AWS_ACCESS_KEY_ID}" ]]; then
+  echo "ERROR: Missing required AWS_ACCESS_KEY_ID value";
+  error="1"
+fi
+if [[ -z "${AWS_SECRET_ACCESS_KEY}" ]]; then
+  echo "ERROR: Missing required AWS_SECRET_ACCESS_KEY value";
+  error="1"
+fi
+if [[ -z "${AWS_DEFAULT_REGION}" ]]; then
+  echo "ERROR: Missing required AWS_DEFAULT_REGION value";
+  error="1"
+fi
+if [[ -z "${LAMBDA_FUNCTION_NAME}" ]]; then
+  echo "ERROR: Missing required LAMBDA_FUNCTION_NAME value";
+  error="1"
+fi
+if [[ -z "${SOURCE_PATH}" ]]; then
+  echo "ERROR: Missing required SOURCE_PATH value";
+  error="1"
+fi
+if [[ "${error}" == "1" ]]; then
+  exit 1;
+fi
+
 # Move into the source path
 cd "${SOURCE_PATH}";
 
