@@ -52,4 +52,4 @@ zip -r lambda.zip .;
 echo "Updating Lambda function...";
 aws lambda update-function-code \
   --function-name ${LAMBDA_FUNCTION_NAME} \
-  -zip-file fileb://$(pwd)/lambda.zip;
+  --zip-file fileb://$(pwd)/lambda.zip;
